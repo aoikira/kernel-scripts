@@ -3,22 +3,15 @@
 #bin/#!/bin/bash
 
 	COMPILER="$1"
-	USER='OGIndian'
+	USER='a1kara'
 	HOST="$(uname -n)"
 	VERSION='5.0'
-	DEVICENAME='Redmi Note 6 Pro'
-	DEVICE='tulip'
-	CAM_LIB=''
+	DEVICENAME='Realme 5 Pro'
+	DEVICE='RMX1971'
 	KERNEL_DIR="$HOME/Kernel"
 	ZIP_DIR="$HOME/Repack"
 	AKSH="$ZIP_DIR/anykernel.sh"
-	DFCF="AtomX-$DEVICE${CAM_LIB}_defconfig"
-	if [[ ! -f $KERNEL_DIR/arch/arm64/configs/$DFCF ]]; then
-		DFCF="$DEVICE${CAM_LIB}-perf_defconfig"
-		if [[ ! -f $KERNEL_DIR/arch/arm64/configs/$DFCF ]]; then
-			DFCF="$DEVICE${CAM_LIB}_defconfig"
-        fi
-	fi
+	DFCF="$DEVICE_defconfig"
 	CONFIG="$KERNEL_DIR/arch/arm64/configs/$DFCF"
 	mkdir $COMPILER
 
@@ -82,20 +75,10 @@
 	muke
 
 	if [[ -f $KERNEL_DIR/$COMPILER/arch/arm64/boot/Image.gz-dtb ]]; then
-		if [[ "$CAM_LIB" == "" ]]; then
-			CAM=OLD-CAM
-		else
-			CAM=$CAM_LIB
-		fi
-
 		source $COMPILER/.config
-		FINAL_ZIP="$DEVICE$CAM_LIB$CONFIG_LOCALVERSION-${COMPILER}_LTO-`date +"%H%M"`"
+		FINAL_ZIP="$CONFIG_LOCALVERSION-${COMPILER}-`date +"%H%M"`"
 		cd $ZIP_DIR
 		cp $KERNEL_DIR/$COMPILER/arch/arm64/boot/Image.gz-dtb $ZIP_DIR/
-		sed -i "s/demo1/$DEVICE/g" $AKSH
-		if [[ "$DEVICE2" ]]; then
-			sed -i "/device.name1/ a device.name2=$DEVICE2" $AKSH
-		fi
 		zip -r9 "$FINAL_ZIP".zip * -x README.md *placeholder zipsigner*
 		java -jar zipsigner* "$FINAL_ZIP.zip" "$FINAL_ZIP-signed.zip"
 		FINAL_ZIP="$FINAL_ZIP-signed.zip"
@@ -113,7 +96,7 @@
 		COMPILER_NAME="$($C_PATH/bin/$CC --version 2>/dev/null | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 
 		telegram-send --disable-web-page-preview --format html "\
-		**************Atom-X-Kernel**************
+		Test-kernel
 		Compiler: <code>$COMPILER</code>
 		Compiler-name: <code>$COMPILER_NAME</code>
 		Linux Version: <code>$(make kernelversion)</code>
@@ -121,7 +104,6 @@
 		Maintainer: <code>$USER</code>
 		Device: <code>$DEVICENAME</code>
 		Codename: <code>$DEVICE</code>
-		Camlib: <code>$CAM</code>
 		Build Date: <code>$(date +"%Y-%m-%d %H:%M")</code>
 		Build Duration: <code>$(($DIFF / 60)).$(($DIFF % 60)) mins</code>
 		Changelog: <a href='$SOURCE'> Here </a>"
