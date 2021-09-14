@@ -52,7 +52,7 @@ sendTG "Building kernel for RMX1971 Completed. Uploading zip"
 
 
 # Clone Anykernel
-git clone https://gitlab.com/AkaruiAikara/AnyKernel3 --depth 1 AnyKernel3
+git clone https://github.com/AkaruiAikara/AnyKernel3 --depth 1 AnyKernel3
 cp $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb AnyKernel3/
 
 now=`date +"%s"`
