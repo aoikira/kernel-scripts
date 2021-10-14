@@ -26,7 +26,7 @@ git clone https://github.com/aoikira/kranul-kk -b $BRANCH $KERNEL_DIR --depth 1
 
 # Clone toolchain
 echo "Cloning toolchains"
-git clone --depth=1 https://github.com/kdrag0n/proton-clang $TOOLCHAIN > /dev/null 2>&1
+git clone --depth=1 https://gitlab.com/klozz/Yuki-clang $TOOLCHAIN > /dev/null 2>&1
 
 # Set Env
 PATH="${TOOLCHAIN}/bin:${PATH}"
