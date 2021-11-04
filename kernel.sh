@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 # Copyright (C) 2020 Saalim Quadri (iamsaalim)
 # SPDX-License-Identifier: GPL-3.0-or-later
@@ -26,13 +27,13 @@ git clone https://github.com/aoikira/kranul-kk -b $BRANCH $KERNEL_DIR --depth 1
 
 # Clone toolchain
 echo "Cloning toolchains"
-git clone --depth=1 https://gitlab.com/klozz/Yuki-clang $TOOLCHAIN > /dev/null 2>&1
+git clone --depth=1 https://gitlab.com/Klozz/Yuki-clang $TOOLCHAIN > /dev/null 2>&1
 
 # Set Env
 PATH="${TOOLCHAIN}/bin:${PATH}"
 export ARCH=arm64
-export KBUILD_BUILD_HOST=aikara
-export KBUILD_BUILD_USER="DroneCI"
+export KBUILD_BUILD_HOST=DroneCI
+export KBUILD_BUILD_USER=a1kara
 
 # Build
 cd "$KERNEL_DIR"
