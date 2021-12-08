@@ -58,7 +58,7 @@ cp $KERNEL_DIR/out/arch/arm64/boot/Image.gz-dtb AnyKernel3/
 
 now=`date +"%s"`
 
-cd AnyKernel3 && zip -r9 [DONT-FLASH]kernel-RMX1971-"$now".zip * -x README.md [DONT-FLASH]kernel-RMX1971-"$now".zip
+cd AnyKernel3 && zip -r9 Yeet~Ayumi-Debug-RMX1971-"$now".zip * -x README.md Yeet~Ayumi-Debug-RMX1971-"$now".zip
 
 ZIP=$(echo *.zip)
 curl -F chat_id="-1001218081655" -F document=@"$ZIP" "https://api.telegram.org/bot${BOT_TOKEN}/sendDocument"
